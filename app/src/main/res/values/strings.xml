@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MobileAndUbiquitousComputingCoursework</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="car_park_names">
+        <item>SECC</item>
+        <item>Duke Street</item>
+        <item>Dundasvale 2</item>
+        <item>Charing Cross</item>
+        <item>Cadogan Square</item>
+        <item>Shields Road</item>
+        <item>Buchanan Galleries</item>
+        <item>Cambridge Street</item>
+        <item>Concert Square</item>
+        <item>Dundasvale 1</item>
+        <item>High Street</item>
+
+    </string-array>
+
+
+
+</resources>
