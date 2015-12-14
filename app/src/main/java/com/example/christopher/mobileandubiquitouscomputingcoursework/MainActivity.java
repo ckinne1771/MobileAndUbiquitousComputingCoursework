@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity{
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
+                Intent mapScreen = new Intent(getApplicationContext(), MapsActivity.class);
+
+                startActivity(mapScreen);
             }
         });
         exitButton = (Button) findViewById(R.id.ExitButton);

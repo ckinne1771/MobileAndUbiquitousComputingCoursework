@@ -79,7 +79,7 @@ public class CarParkInfo {
         carParkData = ", CarParkName=" + CarParkName;
         carParkData = ", Capacity=" + Capacity;
         carParkData = ", Latitude=" + Latitude;
-        carParkData = ", starSignCharacteristics=" + Longitude +"]";
+        carParkData = ", Longitude=" + Longitude +"]";
         return carParkData;
     }
 

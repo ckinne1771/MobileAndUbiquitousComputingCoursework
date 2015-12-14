@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -165,6 +167,40 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
         }
         db.close();
         return  carParkInfo;
+    }
+
+    public List<CarParkInfo> findAllData()
+    {
+
+        String query = "Select * FROM " + TBL_CARPARKDATA;
+        List<CarParkInfo> mapList = new ArrayList<CarParkInfo>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        CarParkInfo carParkInfo;
+
+        if (cursor.moveToFirst()) {
+            while (cursor.isAfterLast() == false) {
+                carParkInfo = new CarParkInfo();
+                carParkInfo.setCarParkID(Integer.parseInt(cursor.getString(0)));
+                carParkInfo.setCarParkName(cursor.getString(1));
+                carParkInfo.setCapacity(cursor.getString(2));
+                carParkInfo.setLatitude(Double.parseDouble(cursor.getString(3)));
+                carParkInfo.setLongitude(Double.parseDouble(cursor.getString(4)));
+                mapList.add(carParkInfo);
+                cursor.moveToNext();
+            }
+
+        }else {
+            mapList.add(null);
+        }
+
+        db.close();
+        return mapList;
     }
 
 
