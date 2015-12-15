@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_ToMaps) {
-            Intent mapScreen = new Intent(getApplicationContext(), MapsActivity.class);
+            Intent theMapScreen = new Intent(getApplicationContext(), MapsActivity.class);
 
-            startActivity(mapScreen);
+            startActivity(theMapScreen);
         }
         if(id==R.id.action_canvasDraw){
             Intent canvasScreen = new Intent(getApplicationContext(), CanvasActivity.class);
