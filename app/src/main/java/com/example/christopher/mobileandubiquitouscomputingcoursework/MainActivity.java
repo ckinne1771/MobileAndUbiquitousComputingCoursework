@@ -111,15 +111,32 @@ public class MainActivity extends AppCompatActivity{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+       public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_ToMaps) {
+            Intent mapScreen = new Intent(getApplicationContext(), MapsActivity.class);
+
+            startActivity(mapScreen);
+        }
+        if(id==R.id.action_canvasDraw){
+            Intent canvasScreen = new Intent(getApplicationContext(), CanvasActivity.class);
+
+            startActivity(canvasScreen);
+        }
+
+        if(id==R.id.action_ToHomeScreen)
+        {
             return true;
+        }
+
+        if(id==R.id.action_exit) {
+            finish();
+            System.exit(0);
         }
 
         return super.onOptionsItemSelected(item);

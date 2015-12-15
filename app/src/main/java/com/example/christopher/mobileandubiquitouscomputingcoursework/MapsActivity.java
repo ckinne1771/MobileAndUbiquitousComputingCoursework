@@ -1,10 +1,13 @@
 package com.example.christopher.mobileandubiquitouscomputingcoursework;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -101,6 +104,50 @@ public class MapsActivity extends AppCompatActivity {
         MarkerOptions marker = new MarkerOptions().title(title).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(markercolour)).anchor(anchorX, anchorY).position(position);
    return marker;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_ToMaps) {
+            return true;
+        }
+        if(id==R.id.action_canvasDraw){
+            Intent canvasScreen = new Intent(getApplicationContext(), CanvasActivity.class);
+
+            startActivity(canvasScreen);
+            finish();
+        }
+
+        if(id==R.id.action_ToHomeScreen)
+        {
+            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
+            finish();
+        }
+
+        if(id==R.id.action_exit) {
+            finish();
+            System.exit(0);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
 
     /**
      * Manipulates the map once available.

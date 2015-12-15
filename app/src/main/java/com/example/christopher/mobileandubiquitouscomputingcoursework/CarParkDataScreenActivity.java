@@ -1,11 +1,14 @@
 package com.example.christopher.mobileandubiquitouscomputingcoursework;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -210,12 +213,36 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_ToMaps) {
+            Intent mapScreen = new Intent(getApplicationContext(), MapsActivity.class);
+
+            startActivity(mapScreen);
+            finish();
+        }
+        if(id==R.id.action_canvasDraw){
+            Intent canvas = new  Intent(getApplicationContext(), CanvasActivity.class);
+            startActivity(canvas);
+            finish();
+        }
+
+        if(id==R.id.action_ToHomeScreen)
+        {
+            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
+            finish();
+        }
+
+        if(id==R.id.action_exit) {
+            finish();
+            System.exit(0);
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 
 
 

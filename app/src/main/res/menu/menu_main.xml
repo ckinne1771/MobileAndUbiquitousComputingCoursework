@@ -1,11 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-    android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_editCarPark" android:title="Edit Car Park"
-    android:orderInCategory="99" app:showAsAction="never" />
+    <item android:id="@+id/action_ToHomeScreen" android:title="To Home Screen"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_ToMaps" android:title="To Maps"
+        android:orderInCategory="99" app:showAsAction="never" />
     <item android:id="@+id/action_exit" android:title="Exit"
+        android:orderInCategory="102" app:showAsAction="never" />
+    <item android:id="@+id/action_canvasDraw" android:title="Canvas"
         android:orderInCategory="101" app:showAsAction="never" />
+
 
 </menu>

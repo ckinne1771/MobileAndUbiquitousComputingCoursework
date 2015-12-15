@@ -40,7 +40,7 @@
     <Button
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:text="Settings"
+        android:text="Maps"
         android:id="@+id/settingsButton"
         android:layout_marginBottom="52dp"
         android:background="@drawable/yellowroundedbutton"
