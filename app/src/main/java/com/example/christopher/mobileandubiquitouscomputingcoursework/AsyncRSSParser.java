@@ -8,15 +8,14 @@ import  android.widget.TextView;
 import java.net.MalformedURLException;
 import java.util.LinkedList;
 
-/**
- * Created by Christopher on 12/12/2015.
- */
+
 public class AsyncRSSParser extends AsyncTask<String, Integer, RSSDataItemClass> {
 
     private Context appcontext;
     private String urlRSSToParse;
     public static LinkedList<RSSDataItemClass> rssData;
 
+    //Constructor. Sets up the context, url to parse and creates a new list.
     public AsyncRSSParser(Context currentAppContext, String urlRSS)
     {
         appcontext = currentAppContext;
@@ -24,6 +23,7 @@ public class AsyncRSSParser extends AsyncTask<String, Integer, RSSDataItemClass>
         rssData = new LinkedList<>();
     }
 
+    //Before parsing, displays toast message.
     @Override
     protected void onPreExecute()
     {
@@ -31,6 +31,7 @@ public class AsyncRSSParser extends AsyncTask<String, Integer, RSSDataItemClass>
     }
 
 
+    //Parsing is executied here.
    @Override
     protected RSSDataItemClass doInBackground(String... params)
     {
@@ -38,18 +39,22 @@ public class AsyncRSSParser extends AsyncTask<String, Integer, RSSDataItemClass>
         ParserClass rssParser = new ParserClass();
         try
         {
+            //attempt to parse data
             rssParser.parseRSSData(urlRSSToParse);
         }
         catch (MalformedURLException e)
         {
             e.printStackTrace();
         }
+
         parsedData = rssParser.getRSSDataItem();
+        //add all the parsed fdata into the new list
         rssData.addAll(rssParser.parseList);
 
         return parsedData;
     }
 
+    //after parsing, display toast message
     @Override
     protected void onPostExecute(RSSDataItemClass result)
     {

@@ -4,6 +4,7 @@ package com.example.christopher.mobileandubiquitouscomputingcoursework;
  * Created by Christopher on 12/12/2015.
  */
 
+//This class contains getters and setters
 import java.io.Serializable;
 
 public class RSSDataItemClass implements Serializable {
@@ -47,6 +48,7 @@ public class RSSDataItemClass implements Serializable {
         this.Occupancy = "";
     }
 
+    //Returns the string of all the current data stored.
     @Override
     public String toString() {
         String carParkRSSData;

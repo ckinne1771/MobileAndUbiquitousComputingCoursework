@@ -32,16 +32,22 @@ public class MainActivity extends AppCompatActivity{
     Button settingsButton;
     Button exitButton;
     String carParkChoiceSelection;
+
+    //called when the Activity is created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Instance of CarParkInfo class. Needed to carry over choice in Spinner
         carParkInfo = new CarParkInfo();
+        //set the value of choice selection
         carParkChoiceSelection = "";
+        //The Spinner
         carParkChoice = (Spinner) findViewById(R.id.CarParkSelector);
+        //Button to go to CarParkDataScreenActivity
         goButton = (Button) findViewById(R.id.goButton);
-
+        //When Button is clicked
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,8 +59,9 @@ public class MainActivity extends AppCompatActivity{
 
             }
         );
-
+        //button to go to maps
         settingsButton = (Button) findViewById(R.id.settingsButton);
+        //When button is clicked
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +70,9 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(mapScreen);
             }
         });
+        //Button to exit the program
         exitButton = (Button) findViewById(R.id.ExitButton);
+        //When button is clicked
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,17 +80,21 @@ public class MainActivity extends AppCompatActivity{
                 System.exit(0);
             }
         });
-
+        //Set the array of car park names equal to an array of pre-defined strings
         carParkNames = getResources().getStringArray(R.array.car_park_names);
-
+        //Array needs adapted to be used in spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,carParkNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        //attach the adapted array
         carParkChoice.setAdapter(dataAdapter);
+        //Handle Option Selection
         carParkChoice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               //get the place in the array selected
                 int choice = carParkChoice.getSelectedItemPosition();
+                //get the name of the car park selected
                 carParkChoiceSelection = carParkNames[choice];
                 carParkInfo.SetChoice(carParkNames[choice]);
 
@@ -110,30 +123,31 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    //Handles Option menu creation and logic
     @Override
        public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Go to maps
         if (id == R.id.action_ToMaps) {
             Intent theMapScreen = new Intent(getApplicationContext(), MapsActivity.class);
 
             startActivity(theMapScreen);
         }
+        //Go to canvas
         if(id==R.id.action_canvasDraw){
             Intent canvasScreen = new Intent(getApplicationContext(), CanvasActivity.class);
 
             startActivity(canvasScreen);
         }
-
+        //Go to home screen. Does nothing as we are already there
         if(id==R.id.action_ToHomeScreen)
         {
             return true;
         }
 
+        //exit the application
         if(id==R.id.action_exit) {
             finish();
             System.exit(0);

@@ -1,8 +1,5 @@
 package com.example.christopher.mobileandubiquitouscomputingcoursework;
 
-/**
- * Created by Christopher on 11/12/2015.
- */
 
         import android.util.Log;
 
@@ -20,14 +17,12 @@ package com.example.christopher.mobileandubiquitouscomputingcoursework;
         import java.util.LinkedList;
 
 
-/**
- * Created by rla on 17/10/2014.
- */
 public class ParserClass {
 
     private RSSDataItemClass RSSDataItem;
     public static LinkedList<RSSDataItemClass> parseList = new LinkedList<>();
 
+    //Set the values in the object used to store parsing data
     public void setRSSDataItem(String sItemData)
     {
         RSSDataItem.setOccupancy(sItemData);
@@ -36,11 +31,13 @@ public class ParserClass {
 
     }
 
+    //get the object used to store parsing data
     public RSSDataItemClass getRSSDataItem()
     {
         return this.RSSDataItem;
     }
 
+    //constructor
     public ParserClass()
     {
         RSSDataItem = new RSSDataItemClass();
@@ -48,11 +45,13 @@ public class ParserClass {
 
     }
 
+    //parsing code
     public void parseRSSDataItem(XmlPullParser theParser, int theEventType)
     {
 
         try
         {
+            //while not at the end to the feed
             while (theEventType != XmlPullParser.END_DOCUMENT)
             {
                 // Found a start tag
@@ -64,27 +63,28 @@ public class ParserClass {
 
                     }
 
-                    // Check which Tag has been found
+                    // If the tag is the occupancy
                     if (theParser.getName().equalsIgnoreCase("carParkOccupancy"))
                     {
-                        // Now just get the associated text
+                        //store occupancy
                         this.RSSDataItem.setOccupancy(theParser.nextText());
-                        // store data in class
+
 
                     }
                     else
-                        // Check which Tag we have
+                        // If the tag is occupied spaces
                         if (theParser.getName().equalsIgnoreCase("occupiedSpaces"))
                         {
-                            // Now just get the associated text
+                            //Store occupied spaces. As this is the last item we need, we add the object used
+                            //to store the parsed data into a list
                             this.RSSDataItem.setOccupiedSpaces(theParser.nextText());
                             parseList.add(this.RSSDataItem);
                         }
                         else
-                            // Check which Tag we have
+                            // If the tag is the car park status
                             if (theParser.getName().equalsIgnoreCase("carParkStatus"))
                             {
-                                // Now just get the associated text
+                                // Store the car park status
                                 this.RSSDataItem.setCarParkStatus(theParser.nextText());
 
                             }

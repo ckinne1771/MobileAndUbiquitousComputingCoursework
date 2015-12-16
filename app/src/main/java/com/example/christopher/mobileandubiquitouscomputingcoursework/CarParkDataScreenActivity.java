@@ -28,13 +28,13 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
 
     CarParkInfo info = new CarParkInfo();
 
-
+//on activity creation
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carpark_data_screen);
-
+//Attempts to create a database.
         CarParkDataBaseStorage carParkDataBaseStorage = new CarParkDataBaseStorage(this, "CarParkDatabase3.s3db", null, 1);
         try {
             carParkDataBaseStorage.dbCreate();
@@ -42,12 +42,15 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
         catch (IOException e) {
             e.printStackTrace();
         }
-
+        //sets up object to store parsed data
         RSSDataItemClass carParkparsing = new RSSDataItemClass();
+        //The URL to parse from
         String RSSFeedURL = "https://api.open.glasgow.gov.uk/traffic/carparks";
+        //Create the means to parse data
         AsyncRSSParser rssAsyncParser = new AsyncRSSParser(this, RSSFeedURL);
 
         try {
+            //execute parsing
             carParkparsing = rssAsyncParser.execute("").get();
         }
         catch (InterruptedException e)
@@ -60,11 +63,15 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
         }
 
 
+        //set up the text views.
         name = (TextView)findViewById(R.id.tvName);
         capacity = (TextView)findViewById(R.id.tvCapacity);
         occupiedSpaces = (TextView)findViewById(R.id.tvOccupiedSpaces);
         occupancy = (TextView)findViewById(R.id.tvOccupancy);
 
+        //The following if statements change the values of the Textvies to specific read or parsed
+        //data. The static information is read from the created database. The dynamic data is read
+        //from the stored parsed data.
         if (MainActivity.carParkInfo.getChoice().equals("SECC"))
             {
                 info = carParkDataBaseStorage.findData(MainActivity.carParkInfo.getChoice());
@@ -198,6 +205,10 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
 
     }
 
+
+    //handles option creation and logic
+
+
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -207,24 +218,24 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Go to Maps
         if (id == R.id.action_ToMaps) {
             Intent mapScreen = new Intent(getApplicationContext(), MapsActivity.class);
 
             startActivity(mapScreen);
             finish();
         }
+        //Got to Canvas
         if(id==R.id.action_canvasDraw){
             Intent canvas = new  Intent(getApplicationContext(), CanvasActivity.class);
             startActivity(canvas);
             finish();
         }
 
+        //Go to Home Screen
         if(id==R.id.action_ToHomeScreen)
         {
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
@@ -232,6 +243,7 @@ public class CarParkDataScreenActivity extends AppCompatActivity {
             finish();
         }
 
+        //Exit Application
         if(id==R.id.action_exit) {
             finish();
             System.exit(0);

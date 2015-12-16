@@ -32,12 +32,16 @@ public class MapsActivity extends AppCompatActivity {
     private float markerColours[] = {210.0f, 120.0f, 300.0f, 330.0f, 270.0f, 0.0f, 180.0f, 50.0f, 250.0f, 150.0f, 150.0f};
     private LatLng glasgowCentre = new LatLng(55.861201, -4.250385);
 
+
+    //When this activity s created
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_view);
+        //Create an arraylist for car park information
         dataList = new ArrayList<CarParkInfo>();
+        //Attempt to create database
         CarParkDataBaseStorage carDB = new CarParkDataBaseStorage(this,"CarParkDatabase3.s3db", null, 1);
         try {
             carDB.dbCreate();
@@ -45,18 +49,21 @@ public class MapsActivity extends AppCompatActivity {
         {
             e.printStackTrace();
         }
-
+        //set the value of this list to all the data found in the table
         dataList = carDB.findAllData();
+        //Create Map
         SetUpMap();
+        //Add the map markers
         AddMarkers();
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
     }
 
     public void SetUpMap()
     {
+        //Find relevant fragment
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         if(mMap != null)
         {
+            //set atributes of map
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(glasgowCentre, 12));
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setCompassEnabled(true);
@@ -71,7 +78,7 @@ public class MapsActivity extends AppCompatActivity {
         CarParkInfo carData;
         String markerTitle;
         String markerText;
-
+        //Adds a marker for each car park
         for(int i=0; i < dataList.size(); i++)
         {
             carData = dataList.get(i);
@@ -84,6 +91,7 @@ public class MapsActivity extends AppCompatActivity {
 
     }
 
+    //Used in the creation of a marker.
     public MarkerOptions SetMarker (String title, String snippet, LatLng position, float markercolour, boolean centreAnchor)
     {
         float anchorX;
@@ -105,24 +113,29 @@ public class MapsActivity extends AppCompatActivity {
    return marker;
     }
 
+
+    //handles option menu creation and logic
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //go to maps. Does nothing as we are already on map screen
         if (id == R.id.action_ToMaps) {
             return true;
         }
+
+        //go to canvas
         if(id==R.id.action_canvasDraw){
             Intent canvasScreen = new Intent(getApplicationContext(), CanvasActivity.class);
 
@@ -130,13 +143,14 @@ public class MapsActivity extends AppCompatActivity {
             finish();
         }
 
+        //go to home screen
         if(id==R.id.action_ToHomeScreen)
         {
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);
             finish();
         }
-
+        //exit application
         if(id==R.id.action_exit) {
             finish();
             System.exit(0);

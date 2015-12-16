@@ -18,9 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by Christopher on 07/12/2015.
- */
+
 public class CarParkDataBaseStorage extends SQLiteOpenHelper {
 
     private static final String DB_PATH = "data/data/com.example.christopher.mobileandubiquitouscomputingcoursework/databases/";
@@ -34,12 +32,14 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
 
     private final Context appContext;
 
+    //constructor
     public CarParkDataBaseStorage(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);
         this.appContext = context;
     }
 
 
+    //Creates the table when this class is instantiated if none exists
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -48,6 +48,7 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
         db.execSQL(CREATE_CARPARK_TABLE);
     }
 
+    //Called whenever the database has been updated. It deletes the old table and replaces it
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
@@ -57,14 +58,17 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
         }
     }
 
+    //Called to create the database
     public void dbCreate() throws IOException
     {
+        //checks to see if a table exists
         boolean dbExist = dbCheck();
 
         if(!dbExist)
         {
             this.getWritableDatabase();
             try{
+                //create table by copying from ecisting database
                 copyDBFromAssets();
             }
             catch (IOException e)
@@ -77,7 +81,7 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
 
     private boolean dbCheck(){
         SQLiteDatabase db = null;
-
+//tries to find database
         try{
             String dbPath = DB_PATH + DB_NAME;
             db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
@@ -96,13 +100,12 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
 
         return db != null ? true : false;
     }
-
+//copy the database from the assets folder
     private void copyDBFromAssets()  throws IOException{
         InputStream dbInput = null;
         OutputStream dbOutput =null;
         String dbfileName = DB_PATH + DB_NAME;
 
-      //  String string[] = appContext.getAssets().list("");
 
 
         try {
@@ -126,20 +129,7 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
         }
     }
 
-    public void addCarInfo(CarParkInfo info)
-    {
-        ContentValues values = new ContentValues();
-        values.put(COL_CARPARKNAME, info.getCarParkName());
-        values.put(COL_CAPACITY, info.getCapacity());
-        values.put(COL_LATITUDE, info.getLatitude());
-        values.put(COL_LONGITUDE, info.getLongitude());
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        db.insert(TBL_CARPARKDATA, null, values);
-        db.close();
-    }
-
+//Finds all the data in a specific row
     public CarParkInfo findData(String data)
     {
 
@@ -168,7 +158,7 @@ public class CarParkDataBaseStorage extends SQLiteOpenHelper {
         db.close();
         return  carParkInfo;
     }
-
+//Finds all the data in a table
     public List<CarParkInfo> findAllData()
     {
 

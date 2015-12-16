@@ -1,8 +1,6 @@
 package com.example.christopher.mobileandubiquitouscomputingcoursework;
 
-/**
- * Created by Christopher on 07/12/2015.
- */
+//This class contains getters and setters
 public class CarParkInfo {
 
     private int CarParkID;
@@ -71,6 +69,7 @@ public class CarParkInfo {
         return Latitude;
     }
 
+    //returns the string value of all the current data stored.
     @Override
     public String toString()
     {
